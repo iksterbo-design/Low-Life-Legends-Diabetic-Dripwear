@@ -76,7 +76,7 @@ jobs:
           git config --global user.name "github-actions[bot]"
           git config --global user.email "41898282+github-actions[bot]@users.noreply.github.com"
           rm -rf "${DEPLOY_DIR}"
-          git clone --depth 1 --branch main "https://x-access-token:${GITHUB_TOKEN}@github.com/${REPO}.git" "${DEPLOY_DIR}"
+          git clone --depth 1 --branch main "https://x-access-token:${{ secrets.GITHUB_TOKEN }}@github.com/${REPO}.git" "${DEPLOY_DIR}"
           cd "${DEPLOY_DIR}"
           git checkout --orphan gh-pages
           git rm -rf .
