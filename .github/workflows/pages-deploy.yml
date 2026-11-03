@@ -26,41 +26,46 @@ jobs:
       # 1. Checkout the source
       - uses: actions/checkout@v4
 
-      # 2. Re-run the build (or download the artifact) to get dripwear.zip
-      - name: Re-run CI build job (fetch artifact)
-        uses: actions/github-script@v7
-        with:
-          script: |
-            const artifacts = await github.rest.actions.listArtifactsForRepo({
-              owner: context.repo.owner,
-              repo: context.repo.repo,
-              per_page: 100
-            });
-            let art;
-            for (const page of artifacts.data.artifacts) {
-              art = page;
-              if (art.name === 'dripwear-dist') break;
-            }
-            if (!art) throw new Error('dripwear-dist artifact not found');
-            await core.exportVariable('ARTIFACT_ID', art.id);
-            core.info(`Using artifact ${art.name} (id ${art.id})`);
+      # 1. Generate the PWA icons from the brand palette (stdlib only)
+      - name: Generate PWA icons
+        run: |
+          python3 scripts/generate-icons.py
 
-      - uses: actions/download-artifact@v4
-        with:
-          name: dripwear-dist
-          path: dist
-          github-token: ${{ secrets.GITHUB_TOKEN }}
+      # 2. Build a single self-contained ZIP of the whole storefront
+      - name: Build storefront ZIP
+        run: |
+          set -e
+          rm -rf _site dist
+          mkdir _site
+          cd _site
+          python3 - "$GITHUB_WORKSPACE" <<'PY'
+          import os, shutil, zipfile, sys
+          root = os.path.abspath(sys.argv[1])
+          dist = os.path.join(root, 'Low-Life-Legends-Diabetic-Dripwear-dist')
+          if os.path.exists(dist):
+              shutil.rmtree(dist)
+          shutil.copytree(root, dist, ignore=shutil.ignore_patterns('.git', '*.DS_Store', '__pycache__', 'node_modules'))
+          zpath = os.path.join(dist, 'dripwear.zip')
+          with zipfile.ZipFile(zpath, 'w', zipfile.ZIP_DEFLATED) as z:
+              for dp, dn, fn in os.walk(dist):
+                  for f in fn:
+                      full = os.path.join(dp, f)
+                      arc = os.path.relpath(full, dist)
+                      z.write(full, arc)
+          print('Built', zpath, os.path.getsize(zpath), 'bytes')
+          PY
+          ls -la
 
-      # 3. Extract the zip into the repo root (so Pages serves index.html)
+      # 3. Extract the freshly built storefront ZIP into _site
       - name: Extract storefront ZIP
         run: |
           set -e
-          mkdir -p _site
+          rm -rf _site
+          mkdir _site
           cd _site
           unzip ../dist/Low-Life-Legends-Diabetic-Dripwear-dist/dripwear.zip
+          test -f index.html && echo "index.html present" || { echo "index.html missing"; exit 1; }
           ls -la
-          # confirm index.html is at the top level
-          test -f index.html
 
       # 3. Deploy the built site to the gh-pages branch
       - name: Deploy to gh-pages
