@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Low Life Legends™ — Diabetic Dripwear · START HERE</title>
+<style>
+  * { box-sizing: border-box; margin:0; padding:0; }
+  body { font-family: Arial, Helvetica, sans-serif; background: #0D3B52; color: #fff; min-height: 100vh; display:flex; flex-direction:column; align-items:center; padding: 40px 20px; }
+  h1 { font-size: 2rem; letter-spacing: 2px; }
+  .wrap { max-width: 900px; width:100%; }
+  .card { background:#08090C; border:1px solid rgba(255,255,255,.15); border-radius:10px; padding:18px 20px; margin:14px 0; }
+  .card h2 { font-size:1.1rem; margin-bottom:6px; color:#FFE600; }
+  .card p { font-size:.9rem; color:rgba(255,255,255,.7); line-height:1.6; }
+  .cta { display:inline-block; background:#FFE600; color:#08090C; font-weight:bold; padding:12px 22px; border-radius:6px; margin-top:8px; text-decoration:none; }
+  .cta:hover { background:#ffd920; }
+  ul { padding-left:20px; }
+  li { margin:6px 0; }
+  .tools { display:grid; grid-template-columns:repeat(auto-fit,minmax(260px,1fr)); gap:14px; }
+  .tool { background:rgba(255,255,255,.04); border:1px solid rgba(255,255,255,.12); border-radius:8px; padding:14px; }
+  .tool .t { font-weight:bold; color:#FF148A; }
+  footer { margin-top:36px; font-size:.8rem; color:rgba(255,255,255,.4); width:100%; }
+  a { color:inherit; }
+</style>
+</head>
+<body>
+<div class="wrap">
+  <h1>✦ LOW LiFE LEGENDS™ · Diabetic Dripwear</h1>
+  <p style="color:rgba(255,255,255,.7)">Streetwear storefront · 33 tees · family crew bundle</p>
+
+  <div class="tools">
+    <div class="tool"><span class="t">✦ Storefront</span>
+      <p>Open the full interactive shop:</p>
+      <a class="cta" href="index.html">Open Storefront →</a>
+    </div>
+    <div class="tool"><span class="t">✦ Sprayer Dropzone</span>
+      <p>Load your 3 brand files (Drip Logo, Wordmark, Mascot) by dragging onto the page.</p>
+      <a class="cta" href="#uploader">Try the uploader</a>
+    </div>
+    <div class="tool"><span class="t">✦ GitHub</span>
+      <p>Repo with CI/CD + dev-to-deploy workflow:</p>
+      <a class="cta" href="https://github.com/iksterbo-design/Low-Life-Legends-Diabetic-Dripwear">View on GitHub →</a>
+    </div>
+  </div>
+
+  <div class="card" id="uploader">
+    <h2>Uploader (drag &amp; drop)</h2>
+    <p>Drop your three official brand files onto the hero artwork on the storefront — they load straight into the hero art, the customizer print, and the wordmark.</p>
+  </div>
+
+  <div class="card">
+    <h2>Workflow at a glance</h2>
+    <ul>
+      <li>Edit <code>index.html</code> · <code>css/styles.css</code> · <code>js/*.js</code></li>
+      <li><code>./scripts/ci-checks.sh</code> — local sanity check</li>
+      <li><code>git add -A &amp;&amp; git commit -m "…" &amp;&amp; git push origin main</code></li>
+      <li>GitHub Actions <code>ci.yml</code> runs <code>validate</code> → <code>build</code>, packs <code>dripwear.zip</code></li>
+      <li>Deploy to GitHub Pages / Netlify / any static host</li>
+    </ul>
+  </div>
+
+  <footer>© 2026 LOW LiFE LEGENDS™ · Diabetic Dripwear™ · Lil Drip</footer>
+</div>
+</body>
+</html>
