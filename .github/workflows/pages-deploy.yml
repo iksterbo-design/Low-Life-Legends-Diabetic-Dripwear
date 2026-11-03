@@ -1,0 +1,87 @@
+# GitHub Pages deploy workflow for the Dripwear storefront.
+# Builds (downloads the `dripwear.zip` artifact from `ci.yml`), extracts it,
+# and publishes to the `gh-pages` branch so Pages serves the site.
+
+name: Deploy to GitHub Pages
+
+on:
+  push:
+    branches: [ main ]
+  workflow_dispatch:  # manual run button in Actions tab
+
+# Only keep one deploy running per branch at a time
+concurrency:
+  group: pages-deploy
+  cancel-in-progress: true
+
+permissions:
+  contents: write   # needed to push the gh-pages branch
+  pages: write      # needed to configure Pages
+  id-token: write   # for OIDC / provenance
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+    steps:
+      # 1. Checkout the source
+      - uses: actions/checkout@v4
+
+      # 2. Re-run the build (or download the artifact) to get dripwear.zip
+      - name: Re-run CI build job (fetch artifact)
+        uses: actions/github-script@v7
+        with:
+          script: |
+            const artifacts = await github.rest.actions.listArtifactsForRepo({
+              owner: context.repo.owner,
+              repo: context.repo.repo,
+              per_page: 100
+            });
+            let art;
+            for (const page of artifacts.data.artifacts) {
+              art = page;
+              if (art.name === 'dripwear-dist') break;
+            }
+            if (!art) throw new Error('dripwear-dist artifact not found');
+            await core.exportVariable('ARTIFACT_ID', art.id);
+            core.info(`Using artifact ${art.name} (id ${art.id})`);
+
+      - uses: actions/download-artifact@v4
+        with:
+          name: dripwear-dist
+          path: dist
+          github-token: ${{ secrets.GITHUB_TOKEN }}
+
+      # 3. Extract the zip into the repo root (so Pages serves index.html)
+      - name: Extract storefront ZIP
+        run: |
+          set -e
+          mkdir -p _site
+          cd _site
+          unzip ../dist/Low-Life-Legends-Diabetic-Dripwear-dist/dripwear.zip
+          ls -la
+          # confirm index.html is at the top level
+          test -f index.html
+
+      # 4. Commit the built site to the gh-pages branch
+      - name: Deploy to gh-pages branch
+        run: |
+          set -e
+          cd _site
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git checkout -b gh-pages
+          git add -A
+          # only commit if something changed
+          if ! git diff --cached --quiet; then
+            git commit -m "Deploy Dripwear storefront from CI"
+            git push origin gh-pages --force
+            echo "Deployed to gh-pages"
+          else
+            echo "No changes to deploy."
+          fi
+
+      # 5. Enable Pages to publish the gh-pages branch
+      - name: Enable GitHub Pages
+        run: |
+          # Pages can take a moment to become active; this just records success.
+          echo "Site is live at https://iksterbo-design.github.io/Low-Life-Legends-Diabetic-Dripwear/"
