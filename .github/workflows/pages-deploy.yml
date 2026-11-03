@@ -71,27 +71,33 @@ jobs:
         run: |
           set -e
           REPO="${GITHUB_REPOSITORY}"
-          rm -rf deploy
-          git clone --depth 1 --branch gh-pages "https://x-access-token:${GITHUB_TOKEN}@github.com/${REPO}.git" deploy 2>/dev/null || true
-          cp -rf _site/* deploy/
-          cd deploy
-          if [ -d .git ]; then
-            git config user.name "github-actions[bot]"
-            git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
-            git add -A
-            if ! git diff --cached --quiet; then
-              git commit -m "Deploy Dripwear storefront from CI" || true
-              git push origin gh-pages --force
-              echo "Deployed to gh-pages"
-            else
-              echo "No changes to deploy."
-            fi
+          DEPLOY_DIR="${PWD}/deploy"
+          rm -rf "${DEPLOY_DIR}"
+          if git clone --depth 1 --branch gh-pages "https://x-access-token:${GITHUB_TOKEN}@github.com/${REPO}.git" "${DEPLOY_DIR}" 2>/dev/null; then
+            echo "Cloned existing gh-pages branch"
           else
-            echo "deploy dir missing .git -- abort"
-            exit 1
+            echo "gh-pages branch not found — seeding from main"
+            git clone --depth 1 --branch main "https://x-access-token:${GITHUB_TOKEN}@github.com/${REPO}.git" "${DEPLOY_DIR}"
+            cd "${DEPLOY_DIR}"
+            git checkout --orphan gh-pages
+            git rm -rf .
+            git commit --allow-empty -m "Initialize gh-pages branch"
+            git push origin gh-pages --force
+          fi
+          cp -rf _site/* "${DEPLOY_DIR}"/
+          cd "${DEPLOY_DIR}"
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add -A
+          if ! git diff --cached --quiet; then
+            git commit -m "Deploy Dripwear storefront from CI" || true
+            git push origin gh-pages --force
+            echo "Deployed to gh-pages"
+          else
+            echo "No changes to deploy."
           fi
 
-      # 4. Record the live URL in the repo so Pages is configured
-      - name: Enable GitHub Pages + echo live URL
+      # 5. Record the live URL
+      - name: Live URL
         run: |
-          echo "Site live at https://iksterbo-design.github.io/Low-Life-Legends-Diabetic-Dripwear/"
+          echo "Site is live at https://iksterbo-design.github.io/Low-Life-Legends-Diabetic-Dripwear/"
