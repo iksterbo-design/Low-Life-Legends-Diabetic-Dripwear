@@ -59,12 +59,26 @@ jobs:
         run: |
           find . -type f \( -name '*.html' -o -name '*.css' -o -name '*.js' -o -name '*.png' -o -name '*.webmanifest' -o -name '*.svg' \) -not -path './.git/*' | sort
 
-      - name: Pack release ZIP
+      - name: Pack release ZIP (Python zipfile)
         run: |
-          cd ..
-          cp -r Low-Life-Legends-Diabetic-Dripwear Low-Life-Legends-Diabetic-Dripwear-dist
-          (cd Low-Life-Legends-Diabetic-Dripwear-dist && zip -r dripwear.zip . -x '*.git*' '*.DS_Store')
-          ls -la Low-Life-Legends-Diabetic-Dripwear-dist/dripwear.zip
+          set -e
+          python3 - "${GITHUB_WORKSPACE}" <<'PY'
+          import os, shutil, zipfile, sys
+          root = os.path.abspath(sys.argv[1])
+          dist = os.path.join(root, 'Low-Life-Legends-Diabetic-Dripwear-dist')
+          if os.path.exists(dist):
+              shutil.rmtree(dist)
+          shutil.copytree(root, dist, ignore=shutil.ignore_patterns('.git', '*.DS_Store', '__pycache__', 'node_modules'))
+          zip_path = os.path.join(dist, 'dripwear.zip')
+          with zipfile.ZipFile(zip_path, 'w', zipfile.ZIP_DEFLATED) as z:
+              for dirpath, dirnames, filenames in os.walk(dist):
+                  for fn in filenames:
+                      full = os.path.join(dirpath, fn)
+                      arc = os.path.relpath(full, dist)
+                      z.write(full, arc)
+          print('Packed', zip_path, os.path.getsize(zip_path), 'bytes')
+          PY
+          ls -la Low-Life-Legends-Diabetic-Dripwear-dist/
 
       - uses: actions/upload-artifact@v4
         with:
