@@ -80,7 +80,7 @@ jobs:
           cd "${DEPLOY_DIR}"
           git checkout --orphan gh-pages
           git rm -rf .
-          cp -rf "${PWD}/_site/." .
+          cp -rf "${GITHUB_WORKSPACE}/_site/." .
           git add -A
           git commit -m "Deploy Dripwear storefront from CI"
           git push origin gh-pages --force
