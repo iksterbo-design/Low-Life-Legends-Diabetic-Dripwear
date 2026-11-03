@@ -27,7 +27,7 @@ def make_png(width, height, rgba):
     """Build a PNG from an RGBA tuple grid."""
     raw = b''
     for row in rgba:
-        raw += b'\x00' + bytes(row)  # filter type 0 (none)
+        raw += b'\x00' + bytes([c for px in row for c in px])  # filter 0 + flatten RGBA
     def chunk(tag, data):
         c = tag + data
         return struct.pack('>I', len(data)) + c + struct.pack('>I', zlib.crc32(c) & 0xffffffff)
@@ -73,10 +73,10 @@ def make_icon(kind):
     if kind == 'maskable':
         # safe-zone: keep glyph within central 70%
         cx, cy, s = width // 2, height // 2, 26
-        volt, mag, bg = VOLT, MAGENTA, DEEP_PETROL
+        volt, mag, bg = VOLT, MAGNETA, DEEP_PETROL
     else:
         cx, cy, s = width // 2, height // 2, 30
-        volt, mag, bg = VOLT, MAGENTA, DEEP_PETROL
+        volt, mag, bg = VOLT, MAGNETA, DEEP_PETROL
     glyph = draw_bolt(cx, cy, s, volt, mag, bg)
     # fade edges for non-maskable
     if kind != 'maskable':
@@ -84,13 +84,13 @@ def make_icon(kind):
             for x in range(width):
                 d = math.hypot(x - cx, y - cy) / (width * 0.5)
                 if d > 0.95:
-                    alpha = int(255 * (1 - (d - 0.95) / 0.05))
+                    alpha = int(255 * max(0, 1 - (d - 0.95) / 0.05))
                     img[y][x] = (*glyph[y][x], alpha)
     return glyph if kind == 'maskable' else img
 
 
 def render_png(img, name):
-    png = make_png(width, height, [tuple(row) for row in img])
+    png = make_png(width, height, img)
     path = os.path.join(OUT, name)
     with open(path, 'wb') as f:
         f.write(png)
