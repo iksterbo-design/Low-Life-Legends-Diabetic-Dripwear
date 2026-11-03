@@ -62,8 +62,7 @@ jobs:
           set -e
           rm -rf _site
           mkdir _site
-          cd _site
-          unzip ../dist/Low-Life-Legends-Diabetic-Dripwear-dist/dripwear.zip
+          unzip Low-Life-Legends-Diabetic-Dripwear-dist/dripwear.zip -d _site
           test -f index.html && echo "index.html present" || { echo "index.html missing"; exit 1; }
           ls -la
 
