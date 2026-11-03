@@ -584,6 +584,7 @@ function initPWA() {
 }
 
 /* ── Init ───────────────────────────────────────────────── */
+if (typeof document !== 'undefined') {
 document.addEventListener('DOMContentLoaded', () => {
   renderCatalog();
   updateCartDrawer();
@@ -707,6 +708,7 @@ document.addEventListener('DOMContentLoaded', () => {
   // reduced motion: already handled globally in CSS
 });
 
+}
 /* ── Live price update on quick view selection ──────────── */
 function updateQuickViewPrice() {
   const tv = $('#qv-thumbs');
