@@ -62,26 +62,32 @@ jobs:
           # confirm index.html is at the top level
           test -f index.html
 
-      # 4. Commit the built site to the gh-pages branch
-      - name: Deploy to gh-pages branch
+      # 3. Deploy the built site to the gh-pages branch
+      - name: Deploy to gh-pages
         run: |
           set -e
-          cd _site
-          git config user.name "github-actions[bot]"
-          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
-          git checkout -b gh-pages
-          git add -A
-          # only commit if something changed
-          if ! git diff --cached --quiet; then
-            git commit -m "Deploy Dripwear storefront from CI"
-            git push origin gh-pages --force
-            echo "Deployed to gh-pages"
+          REPO="${GITHUB_REPOSITORY}"
+          rm -rf deploy
+          git clone --depth 1 --branch gh-pages "https://x-access-token:${GITHUB_TOKEN}@github.com/${REPO}.git" deploy 2>/dev/null || true
+          cp -rf _site/* deploy/
+          cd deploy
+          if [ -d .git ]; then
+            git config user.name "github-actions[bot]"
+            git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+            git add -A
+            if ! git diff --cached --quiet; then
+              git commit -m "Deploy Dripwear storefront from CI" || true
+              git push origin gh-pages --force
+              echo "Deployed to gh-pages"
+            else
+              echo "No changes to deploy."
+            fi
           else
-            echo "No changes to deploy."
+            echo "deploy dir missing .git -- abort"
+            exit 1
           fi
 
-      # 5. Enable Pages to publish the gh-pages branch
-      - name: Enable GitHub Pages
+      # 4. Record the live URL in the repo so Pages is configured
+      - name: Enable GitHub Pages + echo live URL
         run: |
-          # Pages can take a moment to become active; this just records success.
-          echo "Site is live at https://iksterbo-design.github.io/Low-Life-Legends-Diabetic-Dripwear/"
+          echo "Site live at https://iksterbo-design.github.io/Low-Life-Legends-Diabetic-Dripwear/"
