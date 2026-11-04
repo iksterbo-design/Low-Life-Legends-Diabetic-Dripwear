@@ -1,0 +1,91 @@
+# GitHub Pages deploy workflow for the Dripwear storefront.
+# Builds (downloads the `dripwear.zip` artifact from `ci.yml`), extracts it,
+# and publishes to the `gh-pages` branch so Pages serves the site.
+
+name: Deploy to GitHub Pages
+
+on:
+  push:
+    branches: [ main ]
+  workflow_dispatch:  # manual run button in Actions tab
+
+# Only keep one deploy running per branch at a time
+concurrency:
+  group: pages-deploy
+  cancel-in-progress: true
+
+permissions:
+  contents: write   # needed to push the gh-pages branch
+  pages: write      # needed to configure Pages
+  id-token: write   # for OIDC / provenance
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+    steps:
+      # 1. Checkout the source
+      - uses: actions/checkout@v4
+
+      # 1. Generate the PWA icons from the brand palette (stdlib only)
+      - name: Generate PWA icons
+        run: |
+          python3 scripts/generate-icons.py
+
+      # 2. Build a single self-contained ZIP of the whole storefront
+      - name: Build storefront ZIP
+        run: |
+          set -e
+          rm -rf _site dist
+          mkdir _site
+          cd _site
+          python3 - "$GITHUB_WORKSPACE" <<'PY'
+          import os, shutil, zipfile, sys
+          root = os.path.abspath(sys.argv[1])
+          dist = os.path.join(root, 'Low-Life-Legends-Diabetic-Dripwear-dist')
+          if os.path.exists(dist):
+              shutil.rmtree(dist)
+          shutil.copytree(root, dist, ignore=shutil.ignore_patterns('.git', '*.DS_Store', '__pycache__', 'node_modules'))
+          zpath = os.path.join(dist, 'dripwear.zip')
+          with zipfile.ZipFile(zpath, 'w', zipfile.ZIP_DEFLATED) as z:
+              for dp, dn, fn in os.walk(dist):
+                  for f in fn:
+                      full = os.path.join(dp, f)
+                      arc = os.path.relpath(full, dist)
+                      z.write(full, arc)
+          print('Built', zpath, os.path.getsize(zpath), 'bytes')
+          PY
+          ls -la
+
+      # 3. Extract the freshly built storefront ZIP into _site
+      - name: Extract storefront ZIP
+        run: |
+          set -e
+          rm -rf _site
+          mkdir _site
+          unzip Low-Life-Legends-Diabetic-Dripwear-dist/dripwear.zip -d _site
+          test -f index.html && echo "index.html present" || { echo "index.html missing"; exit 1; }
+          ls -la
+
+      # 3. Deploy the built site to the gh-pages branch
+      - name: Deploy to gh-pages
+        run: |
+          set -e
+          REPO="${GITHUB_REPOSITORY}"
+          DEPLOY_DIR="${PWD}/deploy"
+          # Set git identity globally so commits work on all runners
+          git config --global user.name "github-actions[bot]"
+          git config --global user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          rm -rf "${DEPLOY_DIR}"
+          git clone --depth 1 --branch main "https://x-access-token:${{ secrets.GITHUB_TOKEN }}@github.com/${REPO}.git" "${DEPLOY_DIR}"
+          cd "${DEPLOY_DIR}"
+          git checkout --orphan gh-pages
+          git rm -rf .
+          cp -rf "${GITHUB_WORKSPACE}/_site/." .
+          git add -A
+          git commit -m "Deploy Dripwear storefront from CI"
+          git push origin gh-pages --force
+
+      # 5. Record the live URL
+      - name: Live URL
+        run: |
+          echo "Site is live at https://iksterbo-design.github.io/Low-Life-Legends-Diabetic-Dripwear/"

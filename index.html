@@ -1,0 +1,386 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="description" content="Low Life Legends™ Diabetic Dripwear — streetwear pride for the diabetic warrior. 33 T-shirts for the whole crew.">
+<title>Low Life Legends™ — Diabetic Dripwear Storefront</title>
+<link rel="stylesheet" href="css/styles.css">
+<link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'><rect fill='%2308090C' width='32' height='32'/><path fill='%23FFE600' d='M16 6c2 0 3.4.5 4.4 1.4l7 5-6.4 5.9c1 1.2 1.5 2.5 1.5 4v10c0 2.2-1.8 4-4 4s-4-1.8-4-4V16.5c0-1.5.5-2.8 1.5-4L16 6z'/><circle cx='16' cy='13' r='1.6' fill='%23FF148A'/></svg>">
+<script>
+  // graceful audio context unlock
+  document.addEventListener('click', () => { try { const a = new AudioContext(); a.close(); } catch(e) {} }, { once: true });
+</script>
+</head>
+<body>
+<a class="skip-link" href="#main">Skip to shop</a>
+
+<!-- ═══ SPRAY-PAINT OVERLAYS (decorative) ═══ -->
+<div class="spray-overlay" aria-hidden="true"></div>
+
+<!-- ═══ HEADER / NAV ═══ -->
+<header class="topbar">
+  <div class="wrap">
+    <div class="brand-row">
+      <span class="brand-logo" aria-hidden="true">
+        <svg viewBox="0 0 200 60" width="100%" height="100%" style="max-width:140px">
+          <defs>
+            <linearGradient id="wg" x1="0" y1="0" x2="1" y2="1">
+              <stop offset="0" stop-color="#FFE600"/><stop offset="1" stop-color="#FF148A"/>
+            </linearGradient>
+            <linearGradient id="wg2" x1="0" y1="0" x2="1" y2="1">
+              <stop offset="0" stop-color="#08090C"/><stop offset="1" stop-color="#B8BCC2"/>
+            </linearGradient>
+          </defs>
+          <text x="4" y="42" font-family="Arial Black" font-size="34" font-weight="900" fill="#FFE600" stroke="#08090C" stroke-width="3">LOW</text>
+          <text x="4" y="56" font-family="Arial Black" font-size="22" font-weight="900" fill="#FF148A" stroke="#08090C" stroke-width="3">LIF</text>
+          <text x="150" y="42" font-family="Arial Black" font-size="34" font-weight="900" fill="#FF148A" stroke="#08090C" stroke-width="3">LEGENDS</text>
+          <text x="152" y="56" font-family="Arial Black" font-size="22" font-weight="900" fill="#FFE600" stroke="#08090C" stroke-width="3">™</text>
+        </svg>
+      </span>
+      <span class="brand-name">Low <span style="color:var(--magenta)">Life</span> Legends™</span>
+    </div>
+    <ul class="nav" id="nav">
+      <li><a href="#shop">Shop</a></li>
+      <li><a href="#spray-lab">Spray Lab</a></li>
+      <li><a href="#story">Lil Drip</a></li>
+      <li><a href="#bundles">Bundles</a></li>
+      <li><a href="#" id="cart-btn">Drive Cart <span class="count" id="cart-badge">0</span></a></li>
+      <li><button class="btn ghost" id="sound-toggle" style="font-size:.72rem;padding:8px 10px;letter-spacing:1px;"><span id="sound-icon">✦</span> Sound</button></li>
+      <li><button class="btn ghost" id="notify-btn" style="font-size:.72rem;padding:8px 10px;letter-spacing:1px;">🔔 Notif</button></li>
+    </ul>
+    <button class="hamburger" id="hamburger" aria-label="Menu"><span></span></button>
+  </div>
+</header>
+
+<!-- ═══ HERO ═══ -->
+<section class="hero" id="top">
+  <div class="hero-art" id="hero-art" aria-hidden="true">
+    <svg viewBox="0 0 1200 800" width="100%" height="100%" xmlns="http://www.w3.org/2000/svg">
+      <defs>
+        <radialGradient id="g1" cx="50%" cy="50%" r="50%">
+          <stop offset="0" stop-color="#FFE600" stop-opacity=".55"/>
+          <stop offset="1" stop-color="#FFE600" stop-opacity="0"/>
+        </radialGradient>
+        <radialGradient id="g2" cx="50%" cy="50%" r="50%">
+          <stop offset="0" stop-color="#FF148A" stop-opacity=".45"/>
+          <stop offset="1" stop-color="#FF148A" stop-opacity="0"/>
+        </radialGradient>
+        <radialGradient id="g3" cx="50%" cy="50%" r="50%">
+          <stop offset="0" stop-color="#00D4FF" stop-opacity=".4"/>
+          <stop offset="1" stop-color="#00D4FF" stop-opacity="0"/>
+        </radialGradient>
+        <linearGradient id="g4" x1="0" y1="0" x2="1" y2="1">
+          <stop offset="0" stop-color="#08090C"/><stop offset="1" stop-color="#0D3B52"/>
+        </linearGradient>
+      </defs>
+      <rect width="1200" height="800" fill="url(#g4)"/>
+      <g opacity=".7">
+        <circle cx="220" cy="180" r="140" fill="#FFE600" opacity=".07"/>
+        <circle cx="960" cy="140" r="110" fill="#FF148A" opacity=".06"/>
+        <circle cx="760" cy="640" r="130" fill="#00D4FF" opacity=".06"/>
+        <circle cx="360" cy="660" r="90" fill="#FFE600" opacity=".06"/>
+      </g>
+      <g stroke="#FFE600" stroke-width="2" fill="none" opacity=".35">
+        <path d="M200 200 Q300 100 420 180"/>
+        <path d="M1000 120 Q900 80 780 160"/>
+        <path d="M600 500 Q700 380 820 460"/>
+        <path d="M300 700 Q400 600 520 660"/>
+      </g>
+      <g fill="#FFE600" opacity=".9">
+        <circle cx="280" cy="160" r="3"/><circle cx="360" cy="130" r="2"/><circle cx="217" cy="217" r="2"/>
+        <circle cx="980" cy="170" r="3"/><circle cx="1040" cy="140" r="2"/><circle cx="943" cy="200" r="2"/>
+        <circle cx="780" cy="660" r="3"/><circle cx="860" cy="620" r="2"/><circle cx="738" cy="710" r="2"/>
+        <circle cx="400" cy="680" r="3"/><circle cx="470" cy="640" r="2"/>
+      </g>
+      <text x="600" y="420" font-family="Arial Black" font-size="74" font-weight="900" fill="#FFE600" stroke="#08090C" stroke-width="6" text-anchor="middle" letter-spacing="2" opacity=".95">LOW</text>
+      <text x="600" y="490" font-family="Arial Black" font-size="40" font-weight="900" fill="#FF148A" stroke="#08090C" stroke-width="6" text-anchor="middle" letter-spacing="2" opacity=".95">LiFE</text>
+      <text x="600" y="545" font-family="Arial Black" font-size="40" font-weight="900" fill="#00D4FF" stroke="#08090C" stroke-width="6" text-anchor="middle" letter-spacing="2" opacity=".9">LEGENDS™</text>
+      <circle cx="600" cy="600" r="22" fill="#FFE600"/>
+      <path d="M585 600 L600 585 L615 600" stroke="#08090C" stroke-width="4" fill="none"/>
+    </svg>
+  </div>
+  <div class="wrap">
+    <div class="hero-content">
+      <div class="hero-kicker">Diabetic Dripwear™  ·  Flagship Line</div>
+      <h1>LOW <span class="volt">LiFE</span> <span class="magenta">LEGENDS™</span><br>DIABETIC DRIPWEAR</h1>
+      <p class="hero-sub">33 T-shirts for the whole crew. The living extension of the official artwork — aerosol pride, 97 mg/dL legend, fearless streetwear.</p>
+      <div class="hero-actions">
+        <a class="btn primary" href="#shop"><span class="wiggle">✦</span> Shop All 33 Tees</a>
+        <a class="btn secondary" href="#spray-lab"><span class="wiggle">✦</span> Build Your Family Crew Bundle</a>
+      </div>
+    </div>
+  </div>
+  <div class="hero-upload">
+    <span class="dropzone" id="hero-upload">📦 Drop your 3 brand files here</span>
+    <input type="file" id="hero-upload-input" accept="image/*" multiple>
+  </div>
+</section>
+
+<!-- ═══ SPRAY LAB — CUSTOMIZER ═══ -->
+<section class="spray-lab" id="spray-lab">
+  <div class="wrap">
+    <div class="slab">
+      <div class="slab-head">
+        <h2>✦ Spray Lab <span class="sub">— live T-shirt customizer studio</span></h2>
+        <span class="sub" style="font-size:.7rem">front print + sleeve badge + fit sizing</span>
+      </div>
+      <div style="display:grid; grid-template-columns: 1fr 1fr; gap:20px; padding:18px;">
+        <div>
+          <div style="display:flex; align-items:center; gap:12px; margin-bottom:12px;">
+            <div id="base-swatch" style="width:34px;height:34px;border-radius:50%;border:2px solid rgba(255,255,255,.4);box-shadow:var(--shadow-2);"></div>
+            <div style="font-weight:700;color:var(--white)" id="base-name">Jet Black</div>
+          </div>
+          <div class="swatches" id="customizer-tabs" style="flex-wrap:nowrap; overflow-x:auto; padding-bottom:4px;">
+            ${BASE_COLORS.map(b => `<label class="swatch"><input type="radio" name="base" value="${b.id}"><span class="dot" style="background:${b.hex}"></span><span class="tag">${b.name}</span></label>`).join('')}
+          </div>
+          <div class="swatches" style="margin-top:10px; flex-wrap:nowrap; overflow-x:auto; padding-bottom:4px;">
+            ${GRAPHIC_STYLES.map(g => `<label class="swatch"><input type="radio" name="style" value="${g.id}"><span class="dot" style="background:${g.color}"></span><span class="tag">${g.label}</span></label>`).join('')}
+          </div>
+        </div>
+        <div>
+          <div style="margin-bottom:10px;"><span style="color:rgba(255,255,255,.6);font-size:.75rem;text-transform:uppercase;letter-spacing:1px;">Role Edition Tag</span></div>
+          <select id="customizer-role" class="search" style="background:var(--ink);color:var(--white);border:1px solid rgba(255,255,255,.2);padding:10px 12px;border-radius:6px;width:100%;">
+            ${ROLES.map(r => `<option value="${r}">${r}</option>`).join('')}
+          </select>
+          <div style="margin-top:10px;"><span style="color:rgba(255,255,255,.6);font-size:.75rem;text-transform:uppercase;letter-spacing:1px;">Size</span></div>
+          <select id="customizer-size" class="search" style="background:var(--ink);color:var(--white);border:1px solid rgba(255,255,255,.2);padding:10px 12px;border-radius:6px;width:100%;">
+            ${SIZES.map(s => `<option value="${s}">${s}</option>`).join('')}
+          </select>
+          <small id="size-label" style="color:rgba(255,255,255,.55);font-size:.75rem;letter-spacing:1px;"></small>
+        </div>
+      </div>
+      <div class="shirt-mockup-wrap" style="margin:18px auto 0;">
+        <div class="shirt-mockup" id="shirt-mockup">
+          <div class="front" id="shirt-front">
+            <div class="badge" id="role-badge"></div>
+            <div class="graphic" id="shirt-graphic"></div>
+            <div class="sleeve-rect"></div>
+          </div>
+        </div>
+      </div>
+      <div style="text-align:center; margin-top:12px;">
+        <button id="customizer-reset" class="btn ghost" style="font-size:.8rem; padding:7px 16px;">↺ Reset customizer</button>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ═══ CATALOG ═══ -->
+<section class="catalog" id="shop">
+  <div class="wrap">
+    <div class="section-head">
+      <h2>33 <span class="run">LOW LiFE LEGENDS™  ·  DIABETIC DRIPWEAR</span></h2>
+      <p style="color:rgba(255,255,255,.6);margin-top:6px;">The full family crew — core age groups + 12 supporter roles × 2 colorways.</p>
+    </div>
+
+    <div class="catalog-toolbar">
+      <div class="search-wrap">
+        <input type="text" class="search" id="search" placeholder="Search tees, roles, fits…">
+        <span class="clear" data-clear="1">✕</span>
+      </div>
+      <div class="filt-tabs" id="filt-tabs">
+        ${FILTER_GROUPS.map(g => `<button class="filt-tab ${g.id==='all'?'active':''}" data-filter="${g.id}">${g.label} <span class="sub">(${g.count})</span></button>`).join('')}
+      </div>
+      <div class="view-toggle">
+        <button class="view-btn active" data-view="front">Front</button>
+        <button class="view-btn" data-view="back">Back</button>
+      </div>
+      <div style="display:flex;gap:8px;align-items:center;margin-top:8px;flex-wrap:wrap;">
+        <button class="filt-tab" id="size-guide-open" style="background:rgba(255,255,255,.06);color:rgba(255,255,255,.6);padding:6px 12px;border-radius:20px;font-size:.7rem;text-transform:uppercase;letter-spacing:1px;border:1px solid rgba(255,255,255,.12);cursor:pointer;">📏 Size Guide</button>
+      </div>
+    </div>
+
+    <div class="grid" id="catalog-grid"></div>
+    <div class="center-block" style="text-align:center;color:rgba(255,255,255,.5);font-size:.85rem;padding:24px;">Spray-paint hover micro-animations on every card · front/back view toggle · native search · role + colorway filters</div>
+  </div>
+</section>
+
+<!-- ═══ QUICK VIEW MODAL ═══ -->
+<div class="quickview" id="quickview" role="dialog" aria-modal="true" aria-label="Quick view">
+  <div class="qv-panel">
+    <div class="qv-close" id="qv-close">✕</div>
+    <div class="qv-img">
+      <div class="main" id="qv-main">
+        <svg viewBox="0 0 300 420" width="100%" height="100%" xmlns="http://www.w3.org/2000/svg">
+          <rect x="8" y="8" width="284" height="404" rx="8" fill="#08090C"/>
+          <text x="150" y="120" text-anchor="middle" font-family="Courier New" font-size="26" font-weight="bold" fill="#B8BCC2">DIABETIC</text>
+          <text x="150" y="158" text-anchor="middle" font-family="Courier New" font-size="22" font-weight="bold" fill="#FFE600">LIFE™</text>
+          <path d="M40 180 L40 192 L78 180" stroke="#FFE600" stroke-width="5" fill="none" stroke-linecap="round"/>
+          <rect x="46" y="150" width="8" height="34" rx="2" fill="#B8BCC2" opacity=".7"/>
+          <rect x="54" y="150" width="8" height="34" rx="2" fill="#B8BCC2" opacity=".7"/>
+          <rect x="62" y="150" width="8" height="34" rx="2" fill="#B8BCC2" opacity=".7"/>
+          <rect x="26" y="200" width="48" height="48" rx="8" fill="#FF148A" stroke="#000" stroke-width="3"/>
+          <text x="50" y="233" text-anchor="middle" font-family="Arial Black" font-size="18" font-weight="bold" fill="#08090C">LOGO</text>
+          <rect x="100" y="350" width="100" height="60" rx="4" fill="#B8BCC2"/>
+          <text x="150" y="380" text-anchor="middle" font-family="Courier New" font-size="18" font-weight="bold" fill="#08090C">DIABETIC</text>
+          <text x="150" y="406" text-anchor="middle" font-family="Arial Black" font-size="22" font-weight="bold" fill="#FF148A">LIF WARE</text>
+          <text x="150" y="424" text-anchor="middle" font-family="Arial Black" font-size="12" font-weight="bold" fill="#FFE600">QUALITY STREET FIT</text>
+        </svg>
+      </div>
+      <div class="thumbs" id="qv-thumbs"></div>
+    </div>
+    <div class="qv-body">
+      <div class="qv-row"><label>Product</label><div class="val" id="qv-name">—</div></div>
+      <div class="qv-row"><label>Role Edition</label><div class="val" id="qv-role">—</div></div>
+      <div class="qv-row"><label>Fit</label><div class="val" id="qv-fit">—</div></div>
+      <div class="qv-row"><label>Size (in drawer)</label><div class="val" id="qv-size">—</div></div>
+      <div class="qv-row"><label>Price</label><div class="val" id="qv-price">$34</div></div>
+      <div class="qv-row"><label>Graphic Style</label>
+        <div class="qv-attrs" id="qv-graphic-list"></div>
+      </div>
+      <div class="qv-row"><label>Colorway</label>
+        <div class="qv-attrs" id="qv-colorway-list"></div>
+      </div>
+    </div>
+    <div class="qv-actions">
+      <button class="btn ghost" id="qv-remove" style="display:none">✕ Remove from Drip Bag</button>
+      <button class="btn primary" id="qv-cart">+ Add to Drip Bag</button>
+      <button class="btn secondary" id="qv-size-guide">📏 Size Guide</button>
+    </div>
+  </div>
+</div>
+
+<!-- ═══ BUNDLE BUILDER ═══ -->
+<section class="bundle" id="bundles">
+  <div class="wrap">
+    <div class="section-head">
+      <h2>✦ Whole Family Legends <span class="run">— bundle builder</span></h2>
+      <p style="color:rgba(255,255,255,.6);">Mix & match any of the 33 tees. Automatic tiered discounts: <strong>3+ tees = 15% off · 5+ tees = 25% off</strong>.</p>
+    </div>
+    <div class="bundle-grid">
+      <div class="slab" style="padding:16px;">
+        <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:12px;">
+          <span style="color:rgba(255,255,255,.8);font-size:.85rem;">Your Crew Packs <span class="sub" id="bundle-count">0 tees</span></span>
+          <span class="sub" id="bundle-tier">0 tees — full price</span>
+        </div>
+        <div class="bundle-list" id="bundle-list" style="max-height:220px; overflow-y:auto;"></div>
+        <div class="savings-meter" style="margin-top:12px;">
+          <div class="row"><span class="label">Discount tier</span><span class="val" id="bundle-tier">0%</span></div>
+          <div class="meter-bg"><div class="meter-fill" id="bundle-meter" style="width:0%"></div></div>
+          <div class="row"><span class="label">You save</span><span class="val" id="bundle-savings">—</span></div>
+          <div class="total-box">
+            <span>Total</span>
+            <span class="grand" id="bundle-total">$0.00</span>
+          </div>
+        </div>
+      </div>
+      <div class="slab" style="padding:16px; display:flex; flex-direction:column; justify-content:center;">
+        <p style="color:rgba(255,255,255,.7);line-height:1.7;font-size:.9rem;">
+          Build a crew: <strong style="color:var(--white)">Kid Tee + Mom + Dad + Stepdad + Siblings + Grandma + Grandpa</strong> — the more legends you pack, the deeper the discount. Every extra tee lowers the whole bundle.
+        </p>
+        <div style="display:flex; gap:10px; margin-top:14px; flex-wrap:wrap;">
+          <a class="btn primary" style="flex:1; min-width:140px;" id="bundle-to-cart">📦 Dump Bundle to Drip Bag</a>
+          <a class="btn ghost" style="flex:1; min-width:140px;" id="bundle-clear">Clear</a>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ═══ STORY ═══ -->
+<section class="story" id="story">
+  <div class="wrap">
+    <div class="section-head" style="text-align:center;">
+      <h2>✦ The Story of Lil Drip &amp; 97 mg/dL</h2>
+    </div>
+    <div class="steps">
+      ${STORY_STEPS.map(s => `<div class="step" data-num="${s.num}"><h3>${s.title}</h3><p>${s.body}</p></div>`).join('')}
+    </div>
+    <div style="text-align:center; margin-top:26px; padding:20px; border:1px dashed rgba(255,255,255,.25); border-radius:8px; color:rgba(255,255,255,.6);">
+      <span style="font-size:2.4rem;">🔥</span>
+      <p style="margin-top:8px; font-size:1.05rem;"><strong>Lil Drip holds the meter at 97 mg/dL.</strong> Repping Diabetic Dripwear turns every blood-sugar battle into street-gun pride.</p>
+      <p style="font-size:.8rem; color:rgba(255,255,255,.45);">use #DiabeticDripwear &amp; tag 3 legends — you're in the crew.</p>
+    </div>
+  </div>
+</section>
+
+<!-- ═══ SIZE GUIDE ═══ -->
+<div class="sizeguide" id="size-guide" role="dialog" aria-modal="true" aria-label="Size guide">
+  <div class="sg-panel">
+    <div class="sg-close" id="sg-close">✕</div>
+    <div class="sg-nav">
+      <button class="active" data-cat="adults">Adults</button>
+      <button data-cat="teens">Teens</button>
+      <button data-cat="kids">Kids</button>
+    </div>
+    <div class="sg-chart" id="sg-chart"></div>
+    <div style="display:flex;gap:8px;margin-top:12px;flex-wrap:wrap;">
+      <button id="size-guide-kids" class="filt-tab" style="font-size:.7rem;padding:6px 12px;">📏 Kids &amp; Teens</button>
+    </div>
+  </div>
+</div>
+
+<!-- ═══ CART DRAWER ═══ -->
+<div class="drawer-overlay" id="drawer-overlay"></div>
+<div class="drawer" id="drawer">
+  <div class="drawer-head">
+    <h2>✦ Drip Bag <span class="sub">${cartCount()} item${cartCount()!==1?'s':''}</span></h2>
+    <button id="drawer-close">✕</button>
+  </div>
+  <div class="drawer-body" id="drawer-body"></div>
+  <div class="drawer-foot">
+    <div class="row"><span>Subtotal</span><span id="drawer-total">$0.00</span></div>
+    <div class="row saved" id="drawer-saved"></div>
+    <div class="row total"><span style="color:var(--white)">Final Total</span> <strong class="finish" id="drawer-final">$0.00</strong></div>
+    <button class="btn primary" id="checkout-btn" style="margin-top:8px;">▶ Simulate Checkout</button>
+  </div>
+</div>
+
+<!-- ═══ FOOTER ═══ -->
+<footer class="footer">
+  <div class="wrap">
+    <div class="footer-grid">
+      <div>
+        <div class="brand-logo" style="margin-bottom:10px;">
+          <svg viewBox="0 0 200 60" width="100%" height="100%">
+            <text x="4" y="42" font-family="Arial Black" font-size="34" font-weight="900" fill="#FFE600" stroke="#08090C" stroke-width="3">LOW</text>
+            <text x="4" y="56" font-family="Arial Black" font-size="22" font-weight="900" fill="#FF148A" stroke="#08090C" stroke-width="3">LIF</text>
+            <text x="150" y="42" font-family="Arial Black" font-size="34" font-weight="900" fill="#FF148A" stroke="#08090C" stroke-width="3">LEGENDS</text>
+            <text x="152" y="56" font-family="Arial Black" font-size="22" font-weight="900" fill="#FFE600" stroke="#08090C" stroke-width="3">™</text>
+          </svg>
+        </div>
+        <p style="font-size:.82rem; color:rgba(255,255,255,.55);">Low Life Legends™ — Diabetic Dripwear™ — DIABETIC LIFE™™ —<br>lore by the founder's son, Lil Drip.</p>
+      </div>
+      <div>
+        <h4>Woven Neck Label</h4>
+        <ul class="labelled-list">
+          <li>Storm Olive / Carbamide</li>
+          <li>Heavyweight 230g</li>
+          <li>LIF DOMESTIC 001</li>
+          <li>Diabetic Dripwear™</li>
+        </ul>
+      </div>
+      <div>
+        <h4>Authentication</h4>
+        <ul class="labelled-list">
+          <li>Serial on care tag</li>
+          <li>Sticker pack preview</li>
+          <li>© 2026 LOW LiFE LEGENDS™</li>
+        </ul>
+      </div>
+      <div>
+        <h4>Service</h4>
+        <ul class="labelled-list">
+          <li>Shipping &amp; returns</li>
+          <li>Size guide</li>
+          <li>Diabetic Warrior FAQ</li>
+          <li>Gift a legend</li>
+        </ul>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      <span>© 2026 LOW LiFE LEGENDS™ — Diabetic Dripwear™</span>
+      <div class="mid">
+        <span>Made for warriors, by warriors.</span>
+        <span>WCAG 2.2 AA — reduced motion supported.</span>
+      </div>
+    </div>
+  </div>
+</footer>
+
+<!-- ═══ SCRIPTS ═══ -->
+<script src="js/store.js"></script>
+<script src="js/app.js"></script>
+</body>
+</html>

@@ -1,0 +1,19 @@
+# .gitignore
+# Dependencies / build outputs
+node_modules/
+dist/
+*.zip
+dripwear.zip
+
+# Local uploads
+assets/uploaded/
+
+# OS / editor
+.DS_Store
+*.log
+.idea/
+.vscode/
+*.swp
+
+# Secrets (none by default; keep env files out)
+.env
